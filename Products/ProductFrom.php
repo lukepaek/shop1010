@@ -1,23 +1,7 @@
 <?php    
     if(!empty($_POST['Country']))
     {
-        session_start();
-        $serverName = $_SESSION['serverName'];
-        $Database = $_SESSION['database'];
-        $uid = $_SESSION['uid'];
-        $pwd = $_SESSION['pwd'];
-        $connectionOptions = [
-            "Database" => $Database,
-            "Uid" => $uid,
-            "PWD" => $pwd,
-            "CharacterSet" => "UTF-8"
-            ];
-        $conn = sqlsrv_connect($serverName, $connectionOptions);
-        if($conn == false)
-        {
-            echo 'Connection Fail'; 
-            die(print_r(sqlsrv_errows(),true));
-        } 
+        include('../connection/connection.php');
         
         $country = $_POST['Country'];
 
@@ -45,6 +29,7 @@
             $il_row = $il_row + 1;
             if($il_row == 1)
             {
+                
                 $header =  '<a class="dropdown-toggle text-black" href="#" role="button" id="dropdown_language" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="me-2" width="20" src="'.$row['country_flag'].'" alt=""> '.$row['country'].'
                             </a>

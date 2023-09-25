@@ -1,29 +1,8 @@
 
-
 <?php
-     include('../connection/connection.php');  
-     session_start();
-        /*
-        $serverName = $_SESSION['serverName'];
-        $Database = $_SESSION['database'];
-        $uid = $_SESSION['uid'];
-        $pwd = $_SESSION['pwd'];
-        $connectionOptions = [
-            "Database" => $Database,
-            "Uid" => $uid,
-            "PWD" => $pwd,
-            "CharacterSet" => "UTF-8"
-            ];
-        $conn = sqlsrv_connect($serverName, $connectionOptions);
-        if($conn == false)
-        {
-            echo 'Connection Fail'; 
-            die(print_r(sqlsrv_errows(),true));
-        } 
-        */
-
-        $sql = 
-                "SELECT	lt.id,
+        include('../connection/connection.php');
+        $sql = "
+                SELECT	lt.id,
                         lt.email,
                         lt.product_id,
                         lt.qty,
@@ -121,12 +100,12 @@
                                         <div class="col-4 text-end"><span class="ml-auto"><p id = "sub_total">$'.$Sub_Total.'</p></span></div>
                                         <input type="hidden" id="txt_subtotal" value="'.$Sub_Total.'">
                                     </div>
-            
+                                    
                                     <div class="row g-0 py-2">
                                         <div class="col-8"><span class="text-mode">Tax</span></div>
                                         <div class="col-4 text-end"><span class="ml-auto"><p id = "tax">$'.$Tax.'</p></span></div>
                                     </div>
-            
+                    
                                     <div class="row g-0 pt-2 mt-2 border-top fw-bold text-mode">
                                         <div class="col-8"><span class="text-mode">Total Order</span></div>
                                         <div class="col-4 text-end"><span class="ml-auto"><p id = "total">$'.$Total_Order.'</p></span></div>
@@ -134,7 +113,7 @@
 
                                     <div class="pt-4">
                                         <a class="btn btn-block btn-mode w-100 mb-3" href="index.php?id=CheckOut">Continue to Checkout</a> 
-                                        <a class="btn btn-block btn-outline-mode w-100" href="index.php?id=Cart">View Cart</a>
+                                        <a class="btn btn-block btn-outline-mode w-100" onclick="CartsTable()">View Cart</a>
                                     </div>
                                 </div>
                             </div>';

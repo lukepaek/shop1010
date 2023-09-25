@@ -1,5 +1,6 @@
 
 <?php
+  
     $serverName = "hanel2020.cafe24.com";
     $Database = "ecomdb";
     $uid = "sa";
@@ -19,11 +20,5 @@
         echo 'Connection Fail'; 
         die(print_r(sqlsrv_errows(),true));
     }
-
-/*    session_start();
-    $_SESSION['serverName'] = $serverName;
-    $_SESSION['database'] = $Database;
-    $_SESSION['uid'] = $uid;
-    $_SESSION['pwd'] = $pwd;
-*/
+  
 ?>

@@ -1,40 +1,21 @@
 <?php
 
     
-    if(!empty($_POST['id']) && !empty($_POST['email'])){
+    if(!empty($_POST['id']) && !empty($_POST['email']) && !empty($_POST['status_desc']) && !empty($_POST['qty'])){
             
         $id = $_POST['id'];
         $email = $_POST['email'];
+        $status_desc = $_POST['status_desc'];
+        $qty = $_POST['qty'];
         
-        $result = AddToCarts($id, $email);
-        echo $result;
-    }
+        include('../connection/connection.php');
 
-    function AddToCarts($id, $email)
-    {
-        session_start();
-        $serverName = $_SESSION['serverName'];
-        $Database = $_SESSION['database'];
-        $uid = $_SESSION['uid'];
-        $pwd = $_SESSION['pwd'];
-        $connectionOptions = [
-            "Database" => $Database,
-            "Uid" => $uid,
-            "PWD" => $pwd,
-            "CharacterSet" => "UTF-8"
-            ];
-        $conn = sqlsrv_connect($serverName, $connectionOptions);
-        if($conn == false)
-        {
-            echo 'Connection Fail'; 
-            die(print_r(sqlsrv_errows(),true));
-        } 
-        
-
-        $sql_sp = "{call sp_add_to_cart( ?, ? )}";  
+        $sql_sp = "{call sp_add_to_cart( ?, ?, ?, ? )}";  
         $params = array(   
                         array($id, SQLSRV_PARAM_IN),  
-                        array($email, SQLSRV_PARAM_IN)  
+                        array($email, SQLSRV_PARAM_IN),
+                        array($status_desc, SQLSRV_PARAM_IN),
+                        array($qty, SQLSRV_PARAM_IN)    
                     ); 
         $result = sqlsrv_query( $conn, $sql_sp, $params); 
         if( $result == false )  
@@ -43,17 +24,10 @@
             die( print_r( sqlsrv_errors(), true));  
         }
         
-        $success = 'N';
-        while($row = sqlsrv_fetch_array($result))
-        {
-            $success = 'Y';
-        }
-        $success = 'Y';
-        
         sqlsrv_free_stmt( $result);
         sqlsrv_close( $conn);
 
-        return $success;
+        echo 'Y';
 
     }
 ?>
