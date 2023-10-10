@@ -27,7 +27,6 @@
                             </table>
                         </div>
                         
-                        
                         <div class="col-md-6 col-lg-2 header-right">
                             <div class="nav flex-nowrap align-items-center justify-content-md-end">
                             <div class="nav-item d-lg-none">
@@ -39,12 +38,8 @@
                                 <a class="nav-link" href="#" role="button" id="dropdown_myaccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-o"></i>
                                 </a>
                                 
-                                <div class="dropdown-menu dropdown-menu-end mt-2 shadow" aria-labelledby="dropdown_myaccount">
-                                <a class="dropdown-item" href="#">Login</a> 
-                                <a class="dropdown-item" href="index.php?id=SignUp">Register</a> 
-                                <a class="dropdown-item" href="#">Wishlist</a> 
-                                <a class="dropdown-item" href="index.php?id=Address">My account</a>
-                                </div>
+                                <div id="my_account"></div>
+
                             </div><!-- Wishlist -->
                             
                             <div class="nav-item">
@@ -65,6 +60,7 @@
                             </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div><!-- End Top Header -->

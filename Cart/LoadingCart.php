@@ -1,5 +1,7 @@
 
 <?php
+        session_start();
+        $loginas = $_SESSION['LoginAs'];
         include('../connection/connection.php');
         $sql = "
                 SELECT	lt.id,
@@ -19,11 +21,11 @@
                         (
                             SELECT	COUNT(*) Total_Item, SUM(qty * price) Total_Order, email, status_desc
                             FROM	Order_List  
-                            WHERE	email = 'dymong007@gmail.com' 
+                            WHERE	email = '".$loginas."' 
                                     AND status_desc = 'Cart'
                             GROUP	BY email, status_desc
                         )tl ON tl.email = lt.email AND  tl.status_desc = tl.status_desc
-                WHERE	lt.email = 'dymong007@gmail.com'
+                WHERE	lt.email = '".$loginas."'
                         AND lt.status_desc = 'Cart'"; 
         
         
@@ -37,6 +39,7 @@
         $Products = "N";
         $il_row = 0;
         $Total_Order = 0;
+        $Category = "'CartsMini'";
 
         while($row = sqlsrv_fetch_array($result))
         {
@@ -54,7 +57,7 @@
             }
             
             $body = $body.
-                                    '<li class="py-2" id="li'.$row['id'].'">
+                                    '<li class="py-2" id="li'.$row['product_id'].'">
                                         <div class="row align-items-center">
                                         <div class="col-4"><!-- Image --> 
                                             <a href="https://www.pxdraft.com/wrap/shopapp/html/home/index-10.html#"><img src="'.$row['image_url'].'" height="92" Style="padding:10px;" alt="..."></a>
@@ -63,18 +66,18 @@
                                             <p class="mb-2">
                                             <a class="text-mode fw-500" href="https://www.pxdraft.com/wrap/shopapp/html/home/index-10.html#">'.$row['product_desc'].'</a> 
                                             <span class="m-0 text-muted w-100 d-block">$'.number_format($row['price'],2).'</span>
-                                            <input type="hidden" id="txt_price'.$row['id'].'" value="'.number_format($row['price'],2).'">
+                                            <input type="hidden" id="txt_price'.$row['product_id'].'" value="'.number_format($row['price'],2).'">
                                             </p><!--Footer -->
                                             
                                             <div class="d-flex align-items-center"><!-- Select --> 
                                                 
                                                 <div class="cart-qty d-inline-flex">
-                                                    <div class="dec qty-btn qty_btn"><a id='.$row['id'].' OnClick="CartMinus(this.id)">-</a></div>
-                                                    <input readonly type="text" name="qtybutton" value="'.$row['qty'].'" size="12" style="text-align: center;" id="txt_qty'.$row['id'].'">
-                                                    <div class="inc qty-btn qty_btn"><a id='.$row['id'].' OnClick="CartPlus(this.id)">+</a></div>
+                                                    <div class="dec qty-btn qty_btn"><a id='.$row['product_id'].' OnClick="CartMinus(this.id)">-</a></div>
+                                                    <input readonly type="text" name="qtybutton" value="'.$row['qty'].'" size="12" style="text-align: center;" id="txt_qty'.$row['product_id'].'">
+                                                    <div class="inc qty-btn qty_btn"><a id='.$row['product_id'].' OnClick="CartPlus(this.id)">+</a></div>
                                                 </div>
                                     
-                                                <button class="btn btn-link px-0 text-danger ms-auto" type="button" id="'.$row['id'].'" OnClick="RemoveCart(this.id)"><i class="fa fa-trash-o"></i><span class=""> Remove</span></button>
+                                                <button class="btn btn-link px-0 text-danger ms-auto" type="button" id="'.$row['product_id'].'" OnClick="RemoveCart(this.id,'.$Category.')"><i class="fa fa-trash-o"></i><span class=""> Remove</span></button>
                                             </div>
                                         </div>
                                         </div>
@@ -97,23 +100,28 @@
                                 <div class="offcanvas-footer border-top p-3">
                                     <div class="row g-0 py-2">
                                         <div class="col-8"><span class="text-mode">Sub Total</span></div>
-                                        <div class="col-4 text-end"><span class="ml-auto"><p id = "sub_total">$'.$Sub_Total.'</p></span></div>
+                                        <div class="col-4 text-end"><span class="ml-auto"><a id = "sub_total">$'.$Sub_Total.'</a></span></div>
                                         <input type="hidden" id="txt_subtotal" value="'.$Sub_Total.'">
                                     </div>
                                     
                                     <div class="row g-0 py-2">
                                         <div class="col-8"><span class="text-mode">Tax</span></div>
-                                        <div class="col-4 text-end"><span class="ml-auto"><p id = "tax">$'.$Tax.'</p></span></div>
+                                        <div class="col-4 text-end"><span class="ml-auto"><a id = "tax">$'.$Tax.'</a></span></div>
                                     </div>
                     
                                     <div class="row g-0 pt-2 mt-2 border-top fw-bold text-mode">
                                         <div class="col-8"><span class="text-mode">Total Order</span></div>
-                                        <div class="col-4 text-end"><span class="ml-auto"><p id = "total">$'.$Total_Order.'</p></span></div>
+                                        <div class="col-4 text-end"><span class="ml-auto"><a id = "total">$'.$Total_Order.'</a></span></div>
                                     </div>
 
                                     <div class="pt-4">
-                                        <a class="btn btn-block btn-mode w-100 mb-3" href="index.php?id=CheckOut">Continue to Checkout</a> 
-                                        <a class="btn btn-block btn-outline-mode w-100" onclick="CartsTable()">View Cart</a>
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td><a class="btn btn-primary w-100" href="index.php?id=CheckOut">Check Out</a>
+                                                <td>&nbsp;</td> 
+                                                <td><a class="btn btn-block btn-outline-mode w-100" data-bs-dismiss="offcanvas" onclick="CartsTable()">View Cart</a>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>';
@@ -121,7 +129,7 @@
 
         $msg = $header.$body.$footer;
         
-        session_start();
+       
         $_SESSION['cartqty'] = $il_row;
       
         sqlsrv_free_stmt($result);

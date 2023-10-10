@@ -75,13 +75,6 @@
                                         <span class="text-primary">$'.$row['price'].'</span>
                                     </div>
                                     <div class="product-detail-actions d-flex flex-wrap pt-3">
-                                        <!--
-                                        <div class="cart-qty me-3 mb-3">
-                                            <div class="dec qty-btn" OnClick="QuickView_QTY("-")">-</div>
-                                            <input class="cart-qty-input form-control" type="text" name="qtybutton" id="txt_quickview_qty" value="1" readonly>
-                                            <div class="inc qty-btn" OnClick="QuickView_QTY("+")">+</div>
-                                        </div>
-                                        -->
                                     <div class="cart-button mb-3 d-flex">
                                         <button class="btn btn-mode me-3" id="'.$row['id'].'" onclick="AddToCart(this.id,'.$addtocart.',1,1)"><i class="fa fa-shopping-cart"></i> Add to cart</button> 
                                         <button class="btn btn-outline-primary me-3" id="'.$row['id'].'" onclick="AddToCart(this.id,'.$WatchList.',1,1)"><i class="fa fa-heart-o"></i></button>

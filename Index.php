@@ -9,13 +9,15 @@
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
         <meta name="keywords" content="ShopApp - eCommerce Bootstrap 5 Template">
         <meta name="description" content="ShopApp - eCommerce Bootstrap 5 Template"><!-- title -->
-        <title>Shop Be Half</title><!-- Favicon -->
+        <title>ShopApp - eCommerce Bootstrap 5 Template</title><!-- Favicon -->
         
         <link rel="shortcut icon" href="https://www.pxdraft.com/wrap/shopapp/assets/img/favicon.ico"><!-- CSS Template -->
         <link href="./Resources/Css/style.css" rel="stylesheet">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+        
 
     </head>
     <body onload="LoadingCart('Y')">             
@@ -27,6 +29,7 @@
             }
 
             include 'header.php';
+
             if($_GET['id']=='CheckOut')
             {
                 include 'checkout/checkout.php';
@@ -64,6 +67,8 @@
                 include 'Cart/CartTable.php';
             }
             include 'footer.php';
+
+            
         ?>
 
         <script src="./Resources/Js/jquery-3.5.1.min.js.download"></script><!--bootstrap-->
@@ -76,6 +81,7 @@
         <script src="./Resources/Js/custom.js.download"></script>
         <script src="./Resources/Js/theme.js.download"></script>
         <script src="./Resources/Js/color-modes.js.download"></script><!-- End script start -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     </body>
 </html>

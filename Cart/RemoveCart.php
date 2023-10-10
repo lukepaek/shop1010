@@ -13,7 +13,7 @@
     {
         include('../connection/connection.php');
 
-        $sql = "Delete From	Order_List Where email = '".$email."' And id = ".$id." And status_desc = 'Cart'";       
+        $sql = "Delete From	Order_List Where email = '".$email."' And product_id = ".$id." And status_desc = 'Cart'";       
         $result = sqlsrv_query( $conn, $sql); 
         if( $result == false )  
         {  
